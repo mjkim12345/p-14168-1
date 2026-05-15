@@ -1,0 +1,30 @@
+<h1 th:text="${siteName}"></h1>
+
+<form method="POST" action="doWrite" th:object="${form}">
+  <ul th:if="${#fields.hasAnyErrors()}" style="color: red;">
+    <li th:each="err : ${#fields.allErrors()}" th:text="${err.split('-')[1]}"></li>
+  </ul>
+
+  <div>
+    <label for="title">제목</label><br>
+    <input type="text" placeholder="제목" th:field="*{title}" autofocus>
+  </div>
+  <div>
+    <label for="content">내용</label><br>
+    <textarea placeholder="내용" th:field="*{content}"></textarea>
+  </div>
+  <input type="submit" value="작성">
+</form>
+
+<script>
+  // 현재까지 나온 모든 폼 검색
+  const forms = document.querySelectorAll('form');
+  // 그 중에서 가장 마지막 폼 1개 찾기
+  const lastForm = forms[forms.length - 1];
+
+  const errorFieldName = lastForm.previousElementSibling?.querySelector('li')?.dataset?.errorFieldName || '';
+
+  if (errorFieldName.length > 0) {
+    lastForm[errorFieldName].focus();
+  }
+</script>
