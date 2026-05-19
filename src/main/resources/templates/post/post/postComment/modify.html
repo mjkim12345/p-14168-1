@@ -1,0 +1,43 @@
+<form method="POST">
+    <div>
+        <label>글 ID</label><br>
+        <span th:text="${post.id}"></span>
+    </div>
+
+    <div>
+        <label>글 제목</label><br>
+        <span th:text="${post.title}"></span>
+    </div>
+
+    <div>
+        <label>댓글 ID</label><br>
+        <span th:text="${postComment.id}"></span>
+    </div>
+
+    <div>
+        <label>댓글 작성일</label><br>
+        <span th:text="${#temporals.format(postComment.createDate, 'yy.MM.dd HH:mm')}"></span>
+    </div>
+
+    <div>
+        <label>댓글 수정일</label><br>
+        <span th:text="${#temporals.format(postComment.modifyDate, 'yy.MM.dd HH:mm')}"></span>
+    </div>
+
+    <div>
+        <label>기존 내용</label><br>
+        <div style="white-space: pre-line;" th:text="${postComment.content}">댓글 내용</div>
+    </div>
+
+    <div>
+        <label for="content">내용</label><br>
+        <textarea placeholder="내용" id="content" name="content" th:text="${postComment.content}"></textarea>
+    </div>
+
+    <input type="submit" value="댓글 수정">
+</form>
+
+<div>
+    <a th:href="@{/posts/{id}(id=${post.id})}">글 상세페이지</a>
+    <a href="/posts">글 목록</a>
+</div>
